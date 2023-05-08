@@ -1,0 +1,54 @@
+package com.crudmy.crudmysql.controller;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.crudmy.crudmysql.bean.Bean3;
+import com.crudmy.crudmysql.service.servclass;
+
+@RestController
+@RequestMapping("/two")
+public class conclass{
+    @Autowired
+    servclass serv;
+
+    @PostMapping("/insert")
+    public List<Bean3> saveAll(@RequestBody List<Bean3> beans){
+        return serv.saveAll(beans);
+    }
+
+    @GetMapping("/find")
+    public List<Bean3> getByPassword(@RequestParam(value="password") String password) {
+        return serv.getByPassword(password);
+    }
+
+    @GetMapping("/find2")
+    public List<Bean3> getByPasswordAndId(@RequestParam(value="password") String password,@RequestParam(value="id") Integer id) {
+        return serv.getByPasswordAndId(password, id);
+    }
+
+    @DeleteMapping("/delete")
+    @Transactional
+    public String deleteByPassword(@RequestParam(value="password") String password) {
+        serv.deleteByPassword(password);
+        return "deleted";
+    }
+
+    @PutMapping("/updatePassword")
+    @Transactional
+    public String updatePassword(@RequestParam(value="password") String password, @RequestParam(value="newPassword") String newPassword) {
+        serv.updatePassword(password, newPassword);
+        return "updated";
+    }
+}
