@@ -1,7 +1,7 @@
 package com.crudmy.crudmysql.controller;
 
 import java.util.List;
-
+//sample
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
